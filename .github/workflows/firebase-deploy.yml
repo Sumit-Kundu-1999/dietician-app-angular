@@ -5,7 +5,7 @@ on:
       target:
         description: 'Specify the Angular project name to build/deploy'
         required: true
-        default: 'dietician-app-angular'
+        default: 'org'
       firebase_project_id:
         description: 'The Firebase Project ID to deploy to'
         required: true
@@ -38,7 +38,7 @@ jobs:
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          target: dietician-app-b3e0d
+          only: hosting:dietician-app-b3e0d
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DIETICIAN_APP_B3E0D }}
           projectId: dietician-app-b3e0d
