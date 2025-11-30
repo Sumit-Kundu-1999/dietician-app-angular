@@ -38,6 +38,7 @@ jobs:
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          target: dietician-app-b3e0d
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DIETICIAN_APP_B3E0D }}
-          projectId: ${{ github.event.inputs.firebase_project_id }}
+          projectId: dietician-app-b3e0d

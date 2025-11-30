@@ -1,15 +1,11 @@
 :host {
-        display: block;
-        font-family: 'Inter', sans-serif;
-        min-height: 100vh;
-        /* Custom styling for a cleaner look if Bootstrap is minimal */
-        background-color: #f4f7f9;
-      }
-      /* Ensure links and buttons have space */
-      .nav-item {
-        margin: 0 0.5rem;
-      }
-      .custom-dropdown-menu {
-        right: 0;
-        left: auto;
-      }
+    display: block;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background-color: #f4f7f9;
+}
+.nav-item {
+    margin: 0 0.5rem;
+}
+/* Removed the custom-dropdown-menu CSS rule for right/left alignment 
+   as dropdown-menu-end handles this better and more responsively. */
