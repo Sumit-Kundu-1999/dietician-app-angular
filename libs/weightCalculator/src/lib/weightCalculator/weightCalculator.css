@@ -1,0 +1,14 @@
+.background-section {
+    /* Sets a very light gray background for the entire component area */
+    background-color: #f8f9fa; 
+    /* Optional: Ensure the background takes up the full viewport height */
+    min-height: 80vh; 
+}
+
+.calculator-card {
+    /* Optional: Set a white background for the card itself for contrast */
+    background-color: #ffffff;
+    /* Optional: Limit the width of the card so it doesn't span the whole screen */
+    max-width: 450px; 
+    width: 100%;
+}

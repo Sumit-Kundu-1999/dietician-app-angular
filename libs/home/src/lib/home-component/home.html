@@ -1,0 +1,99 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="container py-5">
+    
+    <section class="row align-items-center mb-5 p-4 bg-white rounded-4 shadow-lg profile-card">
+        <div class="col-md-3 text-center">
+            <img 
+                src="/ishani_pp.png" 
+                class="img-fluid rounded-circle border border-primary border-4 mb-3 profile-img" 
+                alt="Instructor Profile Picture"
+            >
+        </div>
+        
+        <div class="col-md-9 text-md-start text-center">
+            <h1 class="display-5 text-primary fw-bold">{{ instructorName }}</h1>
+            <p class="lead mb-3">
+                <span class="badge bg-secondary-subtle text-secondary py-2 px-3">{{ instructorTitle }}</span>
+            </p>
+            <hr class="w-25 mx-auto mx-md-0">
+            <p class="text-dark">{{ instructorBio }}</p>
+            <button 
+                class="btn btn-primary btn-lg mt-3 shadow-sm hover-grow" 
+                (click)="openModel()"
+            >
+                Connect Now <i class="bi bi-arrow-right-circle-fill"></i>
+            </button>
+        </div>
+    </section>
+
+    <hr class="my-5">
+
+    <section class="mt-5 text-center">
+        <h2 class="mb-5 display-4 fw-light text-secondary">🌱 Our Focus Areas</h2>
+        
+        <div id="healthCarousel" class="carousel slide shadow-xl border border-light-subtle rounded-4" data-bs-ride="carousel">
+            
+            <div class="carousel-indicators carousel-indicators-custom">
+                <button 
+                    *ngFor="let image of carouselImages; let i = index" 
+                    type="button" 
+                    data-bs-target="#healthCarousel" 
+                    [attr.data-bs-slide-to]="i" 
+                    [class.active]="i === 0"
+                    [attr.aria-current]="i === 0 ? 'true' : null" 
+                    attr.aria-label="Slide {{ i + 1 }}"
+                ></button>
+            </div>
+            
+            <div class="carousel-inner rounded-4">
+                <div 
+                    *ngFor="let image of carouselImages; let i = index" 
+                    class="carousel-item" 
+                    [class.active]="i === 0"
+                >
+                    <img 
+                        [src]="image.url" 
+                        class="d-block w-100 carousel-img" 
+                        [alt]="image.alt"
+                    >
+                    
+                    <div class="carousel-caption d-none d-md-block carousel-caption-custom p-3 rounded-top-3">
+                        <h3 class="fw-bold">{{ image.caption }}</h3>
+                        <p class="mb-0">Explore our detailed programs in this segment.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-control-prev" type="button" data-bs-target="#healthCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#healthCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    
+    @if (isOpenModel) {
+        <div class="modal-overlay" (click)="closeModal()">
+            <div class="modal-content modal-animation" (click)="$event.stopPropagation()">
+                <div class="modal-header">
+                    <h4 class="fw-bold text-primary">Scan to Connect</h4>
+                    <button class="close-button btn-close-custom" (click)="closeModal()">
+                        &times;
+                    </button>
+                </div>
+            
+                <div class="modal-body">
+                    <div class="qr-code-container">
+                        <img src="/scanner.png" alt="QR Code Scanner" class="img-fluid qr-img">
+                    </div>
+                    <p class="text-muted small">Scan this code to save **{{ instructorName }}'s** contact details instantly.</p>
+                </div>
+            
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": false,
+    "target": "es2022",
+    "module": "preserve",
+    "lib": ["es2020", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@org/home": ["libs/home/src/index.ts"],
+      "@org/header": ["libs/header/src/index.ts"],
+      "@org/body": ["libs/body/src/index.ts"],
+      "@org/weightCalculator": ["libs/weightCalculator/src/index.ts"],
+      "@org/login": ["libs/login/src/index.ts"],
+      "@org/tools/storage": ["libs/tools/storage/src/index.ts"],
+      "@org/tools/database-connect": [
+        "libs/tools/database-connect/src/index.ts"
+      ],
+      "@org/sign-up": ["libs/sign-up/src/index.ts"],
+      "@org/authentication": ["libs/authentication/src/index.ts"],
+      "@org/tools/auth-validation": ["libs/tools/auth-validation/src/index.ts"],
+      "@org/auth": ["libs/tools/auth/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,92 @@
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
+      <div class="container-fluid max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Brand/Logo (Left) -->
+        <a routerLink="/overview" class="navbar-brand d-flex align-items-center">
+          <!-- Mock Logo SVG: Adjusted size for Bootstrap context -->
+          <svg class="me-2" style="height: 1.5rem; width: 1.5rem; color: #10b981;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <span class="fw-bold text-primary">Healthy Friends</span>
+        </a>
+
+        <!-- Toggler for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Links (Center) -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            @for (item of navItems; track item.label) {
+              <li class="nav-item">
+                <a 
+                  [routerLink]="'/'+item.view"
+                  (click)="setView(item.view)"
+                  class="nav-link"
+                  [routerLinkActive]="activeView() === item.view ? item.view : '/overview'"
+                  [attr.aria-current]="activeView() === item.view ? 'page' : null"
+                >
+                  {{ item.label }}
+                </a>
+              </li>
+            }
+          </ul>
+          
+          <!-- Auth Section (Right) -->
+          <div class="d-flex align-items-center">
+            <!-- Login Button (Visible when logged out) -->
+            @if (!isLoggedIn()) {
+              <button 
+                class="btn btn-primary rounded-pill px-4"
+                [routerLink]="['/login']"
+              >
+                Login
+              </button>
+            }
+
+            <!-- User Dropdown (Visible when logged in) -->
+            @if (isLoggedIn() || (isLoggedIn$ | async)) {
+              <div class="dropdown">
+                <!-- Dropdown Trigger Button (User Name) -->
+                <button 
+                  (click)="toggleDropdown()" 
+                  type="button" 
+                  class="btn btn-outline-primary dropdown-toggle d-flex align-items-center rounded-pill ps-2 pe-3" 
+                  [attr.aria-expanded]="isDropdownOpen()" 
+                  aria-haspopup="true"
+                >
+                  <span class="d-inline-block rounded-circle bg-info text-white me-2" style="width: 30px; height: 30px; line-height: 30px; text-align: center; font-weight: bold; font-size: 0.75rem;">
+                    {{ userName().charAt(0) }}
+                  </span>
+                  <span class="d-none d-lg-inline">{{ userName() }}</span>
+                </button>
+                
+                <!-- Dropdown Menu -->
+                @if (isDropdownOpen()) {
+                  <div 
+                    class="dropdown-menu custom-dropdown-menu show shadow"
+                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" 
+                    tabindex="-1"
+                  >
+                    <a href="#" class="dropdown-item" role="menuitem" tabindex="-1">Your Profile</a>
+                    <a href="#" class="dropdown-item" role="menuitem" tabindex="-1">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <button 
+                      (click)="logout()" 
+                      class="dropdown-item text-danger" 
+                      role="menuitem" 
+                      tabindex="-1"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                }
+              </div>
+            } 
+            
+          </div>
+        </div>
+      </div>
+    </nav>
+<router-outlet></router-outlet>

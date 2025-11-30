@@ -1,0 +1,62 @@
+<div
+  class="d-flex justify-content-center align-items-center py-5 background-section"
+>
+  <div class="calculator-card p-5 shadow-lg rounded-3 text-center">
+    <h2 class="mb-4 text-primary">⚖️ BMI & Weight Tracker</h2>
+
+    <p class="text-muted mb-4">
+      Please fill the below fields to get your report.
+    </p>
+    <form>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Weight (kg)</span>
+        <input
+          type="number"
+          class="form-control"
+          placeholder="e.g., 75"
+          [formControl]="weightControl"
+        />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Height (feet)</span>
+        <input
+          type="number"
+          class="form-control"
+          placeholder="e.g., 170"
+          [formControl]="heightControl"
+        />
+      </div>
+      <button class="btn btn-success mt-3 w-100" (click)="calculateBMI()" type="button">Calculate BMI</button>
+
+      @if (bmiResult !== undefined) {
+          <div
+            class="mt-4 p-3 border border-success rounded-3 bg-light text-center"
+          >
+            <h4 class="text-success mb-2">
+              Your BMI is:
+              <span class="fw-bold">{{ bmiResult }}</span>
+            </h4>
+    
+            <p class="mb-0 text-dark">
+              Category:
+              <span class="fw-bold">{{ bmiCategory }}</span>
+            </p>
+          </div>
+       }
+
+       @if (bmiResult === undefined && bmiCategory) {
+           <div
+             class="mt-4 alert alert-info text-center"
+           >
+             {{ bmiCategory }}
+           </div>
+       }
+
+    </form>
+  </div>
+</div>
+
+<div class="text-center text-muted py-3">
+  <small>Health data is for informational purposes only.</small>
+</div>

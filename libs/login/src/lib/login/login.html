@@ -1,0 +1,138 @@
+<div
+  class="bg-light d-flex align-items-center justify-content-center min-vh-100 p-4"
+>
+  <div
+    class="bg-white p-4 p-sm-5 p-md-6 rounded-3 shadow-lg w-100 form-fade-in"
+    style="max-width: 448px"
+  >
+    <div class="text-center mb-4">
+      <svg
+        class="mx-auto text-primary"
+        style="width: 4rem; height: 4rem"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+        />
+      </svg>
+      <h1 class="h3 fw-bold text-dark mt-3">Welcome</h1>
+      <p class="text-secondary small mt-1">Sign in to continue to Weather App</p>
+    </div>
+
+    <form id="loginForm" [formGroup]="userForm">
+      <div class="mb-3">
+        <label for="email" class="form-label small fw-medium text-dark"
+          >Email or Username</label
+        >
+        <input
+          type="text"
+          id="email"
+          name="email"
+          class="form-control px-3 py-2 border rounded-3 shadow-sm custom-focus"
+          placeholder="you@example.com"
+          formControlName="username"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <label for="password" class="form-label small fw-medium text-dark"
+            >Password</label
+          >
+          <a
+            href="#"
+            id="forgotPasswordLink"
+            class="text-decoration-none small text-primary hover-underline-effect"
+            >Forgot Password?</a
+          >
+        </div>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control px-3 py-2 border rounded-3 shadow-sm custom-focus"
+          placeholder="••••••••"
+          formControlName="password"
+          required
+        />
+      </div>
+
+      <div id="messageArea" class="mb-3 small text-center min-h-20px">
+        <p class="text-danger">{{statusMessage}}</p>
+        </div>
+
+      <button
+        type="submit"
+        id="loginButton"
+        class="btn btn-primary w-100 fw-semibold py-3 px-4 rounded-3 shadow-sm custom-button-transition focus-ring"
+        (click)="onClick()"
+      >
+        <span id="buttonText">Login</span>
+        <div
+          id="buttonSpinner"
+          class="spinner-border spinner-border-sm text-white mx-auto d-none"
+          role="status"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </button>
+    </form>
+
+    <p class="mt-4 text-center small text-secondary">
+      Don't have an account?
+      <button
+        id="signUpLink"
+        class="btn btn-link fw-medium text-primary p-0 align-baseline hover-underline-effect"
+        (click)="onClickSignUp()"
+      >
+        Sign Up
+      </button>
+    </p>
+  </div>
+
+  <div
+    class="modal fade"
+    id="customModal"
+    tabindex="-1"
+    aria-labelledby="modalTitle"
+    aria-hidden="true"
+    [class.show]="isSignUpPopUpOpen"
+    style="display: none"
+  >
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-semibold text-dark" id="modalTitle">
+            Modal Title
+          </h5>
+        </div>
+        <div class="modal-body pt-2 pb-2">
+          <p id="modalMessage" class="text-secondary small mb-0">
+            Modal message goes here.
+          </p>
+        </div>
+        <div class="modal-footer border-0 pt-0 justify-content-end">
+          <button
+            type="button"
+            id="modalCloseButton"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <lib-sign-up
+    [isVisible]="isSignUpPopUpOpen"
+    (closeModal)="closeSingInPopUp()"
+  ></lib-sign-up>
+</div>
