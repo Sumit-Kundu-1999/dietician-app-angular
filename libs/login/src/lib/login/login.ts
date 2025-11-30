@@ -55,7 +55,7 @@ export class Login {
           this.loginSuccess.emit(this.authService.isLoggedIn());
         },
         error: (error) =>  {
-          this.setMessages({ erroMsg: error.error.msg });
+          this.setMessages({ erroMsg: error.error.msg ?? 'Server Error' });
         },
       })
 

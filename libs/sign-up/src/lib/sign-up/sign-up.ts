@@ -124,7 +124,7 @@ export class SignUp implements OnInit{
         },
         error: (err) =>  {
           this.statusMessage = {
-            message: err.error.msg,
+            message: err.error.msg ?? 'Server Error',
             type: 'error'
           }
         },

@@ -1,0 +1,43 @@
+name: Manual Deploy to Firebase (Master)
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Specify the Angular project name to build/deploy'
+        required: true
+        default: 'dietician-app-angular'
+      firebase_project_id:
+        description: 'The Firebase Project ID to deploy to'
+        required: true
+        default: 'dietician-app-b3e0d'
+jobs:
+  build-and-deploy:
+    # We explicitly run on the master branch selection from the UI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Angular Application
+        run: npm run build:${{ github.event.inputs.target }}
+        env: 
+          NX_NO_CLOUD: true
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DIETICIAN_APP_B3E0D }}
+          projectId: ${{ github.event.inputs.firebase_project_id }}
