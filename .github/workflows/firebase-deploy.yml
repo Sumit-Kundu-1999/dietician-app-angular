@@ -29,7 +29,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular Application
-        run: npm run build:${{ github.event.inputs.target }}
+        run: npm run build
         env: 
           NX_NO_CLOUD: true
       - name: Install Firebase CLI
