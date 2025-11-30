@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: 'https://dietician-app-b3e0d.web.app' }));
 app.use(express.json());
 
 const connectDb = async() => {
