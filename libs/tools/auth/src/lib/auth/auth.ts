@@ -13,7 +13,7 @@ interface AuthResponse {
 })
 
 export class AuthService {
-  private apiUrl = 'https://dietician-app-node.onrender.com/api/auth';
+  private apiUrl = 'http://localhost:3000/api/auth';
   http = inject(HttpClient)
   private loggedSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loggedSubject.asObservable();
