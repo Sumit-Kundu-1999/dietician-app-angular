@@ -1,16 +1,15 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'lib-home',
-  imports: [NgFor],
+  imports: [],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-  instructorName = 'Dr. First Name';
+  instructorName = 'Dr. Ishani Kundu';
   instructorTitle = 'Certified Nutritionist & Wellness Coach';
-  instructorBio = `Dr. Sharma brings over 10 years of experience in clinical nutrition and personalized wellness planning. 
+  instructorBio = `Dr. Ishani brings over many years of experience in clinical nutrition and personalized wellness planning. 
                            Her approach focuses on sustainable lifestyle changes, integrating diet, fitness, and mental well-being 
                            to achieve optimal health outcomes.`;
   

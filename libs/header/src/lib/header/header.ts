@@ -30,7 +30,7 @@ export class Header implements OnInit {
     { label: 'Home', view: 'overview' },
     { label: 'Workouts', view: 'workouts' },
     { label: 'Weight Calculator', view: 'weightCalculator' },
-    { label: 'Programs', view: 'programs' },
+    { label: 'Products', view: 'products' },
     { label: 'Membership', view: 'membership' },
   ];
 
@@ -46,6 +46,7 @@ export class Header implements OnInit {
     this.userName.set('');
     this.authService.logout();
     console.log('User logged out.');
+    this.router.navigate(['login'])
   }
 
   ngOnInit(): void {

@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div
   class="bg-light d-flex align-items-center justify-content-center min-vh-100 p-4"
 >
@@ -21,64 +23,66 @@
           d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
         />
       </svg>
-      <h1 class="h3 fw-bold text-dark mt-3">Welcome</h1>
-      <p class="text-secondary small mt-1">Sign in to continue to Weather App</p>
+      <h1 class="h3 fw-bold text-dark mt-3">Welcome Back</h1>
+      <p class="text-secondary small mt-1">
+        Sign in to continue
+      </p>
     </div>
 
-    <form id="loginForm" [formGroup]="userForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
       <div class="mb-3">
-        <label for="email" class="form-label small fw-medium text-dark"
-          >Email or Username</label
-        >
+        <label for="email" class="form-label small fw-medium text-dark">Email or Username</label>
         <input
           type="text"
           id="email"
-          name="email"
+          formControlName="username"
           class="form-control px-3 py-2 border rounded-3 shadow-sm custom-focus"
           placeholder="you@example.com"
-          formControlName="username"
           required
         />
+        <div 
+          *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)" 
+          class="text-danger small mt-1">
+          Username/Email is required.
+        </div>
       </div>
 
       <div class="mb-3">
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <label for="password" class="form-label small fw-medium text-dark"
-            >Password</label
-          >
-          <a
-            href="#"
-            id="forgotPasswordLink"
-            class="text-decoration-none small text-primary hover-underline-effect"
-            >Forgot Password?</a
-          >
+          <label for="password" class="form-label small fw-medium text-dark">Password</label>
+          <a routerLink="/forgot-password" class="small text-primary text-decoration-none">Forgot Password?</a>
         </div>
         <input
           type="password"
           id="password"
-          name="password"
+          formControlName="password"
           class="form-control px-3 py-2 border rounded-3 shadow-sm custom-focus"
           placeholder="••••••••"
-          formControlName="password"
           required
         />
+        <div 
+          *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" 
+          class="text-danger small mt-1">
+          Password is required.
+        </div>
       </div>
 
       <div id="messageArea" class="mb-3 small text-center min-h-20px">
-        <p class="text-danger">{{statusMessage}}</p>
-        </div>
+        <p *ngIf="statusMessage" [class.text-success]="isSuccess" [class.text-danger]="!isSuccess">{{ statusMessage }}</p>
+      </div>
 
       <button
         type="submit"
         id="loginButton"
         class="btn btn-primary w-100 fw-semibold py-3 px-4 rounded-3 shadow-sm custom-button-transition focus-ring"
-        (click)="onClick()"
+        [disabled]="loginForm.invalid || isLoading"
       >
-        <span id="buttonText">Login</span>
+        <span id="buttonText" [class.d-none]="isLoading">Login</span>
         <div
           id="buttonSpinner"
-          class="spinner-border spinner-border-sm text-white mx-auto d-none"
+          class="spinner-border spinner-border-sm text-white mx-auto"
           role="status"
+          [class.d-none]="!isLoading"
         >
           <span class="visually-hidden">Loading...</span>
         </div>
@@ -87,15 +91,32 @@
 
     <p class="mt-4 text-center small text-secondary">
       Don't have an account?
-      <button
+      <a 
         id="signUpLink"
         class="btn btn-link fw-medium text-primary p-0 align-baseline hover-underline-effect"
         (click)="onClickSignUp()"
       >
         Sign Up
-      </button>
+      </a>
     </p>
+    <div class="d-flex align-items-center justify-content-center">
+      <div id="g_id_onload"
+       data-client_id="129395533013-gie56o3q23g1dkchvnr7g88fhdiolhlh.apps.googleusercontent.com"
+       data-context="signin"
+       data-ux_mode="popup"
+       data-login_uri="http://localhost:3000/api/auth/googleSignIn"
+       data-itp_support="true">
   </div>
+  
+  <div class="g_id_signin"
+       data-type="icon"
+       data-shape="circle"
+       data-theme="filled_blue"
+       data-text="signin_with"
+       data-size="large">
+  </div>
+    </div>
+    </div>
 
   <div
     class="modal fade"
@@ -104,33 +125,9 @@
     aria-labelledby="modalTitle"
     aria-hidden="true"
     [class.show]="isSignUpPopUpOpen"
-    style="display: none"
+    [style.display]="isSignUpPopUpOpen ? 'block' : 'none'"
   >
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-semibold text-dark" id="modalTitle">
-            Modal Title
-          </h5>
-        </div>
-        <div class="modal-body pt-2 pb-2">
-          <p id="modalMessage" class="text-secondary small mb-0">
-            Modal message goes here.
-          </p>
-        </div>
-        <div class="modal-footer border-0 pt-0 justify-content-end">
-          <button
-            type="button"
-            id="modalCloseButton"
-            class="btn btn-primary"
-            data-bs-dismiss="modal"
-          >
-            OK
-          </button>
-        </div>
-      </div>
     </div>
-  </div>
   <lib-sign-up
     [isVisible]="isSignUpPopUpOpen"
     (closeModal)="closeSingInPopUp()"

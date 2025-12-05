@@ -1,0 +1,133 @@
+<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+          <h2 class="mb-0">Membership Application Form 📝</h2>
+        </div>
+        <div class="card-body">
+          
+            @if(submissionMessage) {
+                <div class="mb-3">
+                  <div 
+                    [class.alert-success]="isSubmissionSuccess" 
+                    [class.alert-danger]="isSubmissionSuccess === false" 
+                    class="alert" role="alert">
+                    {{ submissionMessage }}
+                  </div>
+                </div>
+            }
+
+          <form [formGroup]="membershipForm" (ngSubmit)="onSubmit()">
+
+            <fieldset formGroupName="personalDetails" class="mb-4 p-3 border rounded">
+              <legend class="text-primary fw-bold">1. Personal Details</legend>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="firstName" class="form-label">First Name *</label>
+                  <input id="firstName" type="text" formControlName="firstName" class="form-control" placeholder="Sumit">
+                  <div *ngIf="personalDetails['firstName'].invalid && (personalDetails['firstName'].dirty || personalDetails['firstName'].touched)" class="text-danger small mt-1">
+                    <span *ngIf="personalDetails['firstName'].errors?.['required']">First Name is required.</span>
+                    <span *ngIf="personalDetails['firstName'].errors?.['minlength']">Must be at least 2 characters.</span>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label">Last Name *</label>
+                  <input id="lastName" type="text" formControlName="lastName" class="form-control" placeholder="Kundu">
+                  <div *ngIf="personalDetails['lastName'].invalid && (personalDetails['lastName'].dirty || personalDetails['lastName'].touched)" class="text-danger small mt-1">
+                    <span *ngIf="personalDetails['lastName'].errors?.['required']">Last Name is required.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address *</label>
+                <input id="email" type="email" formControlName="email" class="form-control" placeholder="your.name@example.com">
+                <div *ngIf="personalDetails['email'].invalid && (personalDetails['email'].dirty || personalDetails['email'].touched)" class="text-danger small mt-1">
+                  <span *ngIf="personalDetails['email'].errors?.['required']">Email is required.</span>
+                  <span *ngIf="personalDetails['email'].errors?.['email']">Enter a valid email address.</span>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number (10 digits) *</label>
+                <input id="phone" type="tel" formControlName="phone" class="form-control" placeholder="1234567890">
+                <div *ngIf="personalDetails['phone'].invalid && (personalDetails['phone'].dirty || personalDetails['phone'].touched)" class="text-danger small mt-1">
+                  <span *ngIf="personalDetails['phone'].errors?.['required']">Phone number is required.</span>
+                  <span *ngIf="personalDetails['phone'].errors?.['pattern']">Phone must be 10 digits.</span>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset formGroupName="membership" class="mb-4 p-3 border rounded">
+              <legend class="text-primary fw-bold">2. Membership Options</legend>
+              
+              <div class="mb-3">
+                <label for="level" class="form-label">Choose Level *</label>
+                <select id="level" formControlName="level" class="form-select">
+                  <option value="" disabled>Select a membership level</option>
+                  <option *ngFor="let level of membershipLevels" [value]="level">{{ level }}</option>
+                </select>
+                <div *ngIf="membershipFormControl['membership'].get('level')?.invalid && (membershipFormControl['membership'].get('level')?.dirty || membershipFormControl['membership'].get('level')?.touched)" class="text-danger small mt-1">
+                  Membership level is required.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label d-block">Duration</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="duration1" value="1 year" formControlName="duration">
+                  <label class="form-check-label" for="duration1">1 Year</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" id="duration2" value="2 years" formControlName="duration">
+                  <label class="form-check-label" for="duration2">2 Years</label>
+                </div>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="newsletter" formControlName="newsletter">
+                <label class="form-check-label" for="newsletter">
+                  Yes, I'd like to subscribe to the monthly newsletter.
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="mb-4 p-3 border rounded">
+              <legend class="text-primary fw-bold">3. Terms & Agreement</legend>
+              
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="termsAccepted" formControlName="termsAccepted">
+                <label class="form-check-label" for="termsAccepted">
+                  I agree to the <a href="#" target="_blank">Terms and Conditions</a> *
+                </label>
+                @if(membershipFormControl['termsAccepted'].invalid && membershipFormControl['termsAccepted'].touched) {
+                    <div class="text-danger small mt-1">
+                      You must accept the terms to proceed.
+                    </div>
+                }
+              </div>
+              
+            </fieldset>
+
+            <button 
+              type="submit" 
+              class="btn btn-primary btn-lg w-100" 
+              [disabled]="membershipForm.invalid || isSubmitting"
+            >
+              <span *ngIf="!isSubmitting">Submit Application</span>
+              <span *ngIf="isSubmitting">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Submitting...
+              </span>
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

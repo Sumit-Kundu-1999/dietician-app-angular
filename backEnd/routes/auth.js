@@ -3,7 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const JWT_SECRET = "jbu$fPhG&472GyuMg3+#PhG&472Gy" //random string
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+
 
 // @route POST /api/auth/register
 // @desc Register user
@@ -27,7 +31,7 @@ router.post('/register', async(req, res) => {
         const payload = {user: {id: user.id, role: user.role}};
         jwt.sign(
             payload,
-            JWT_SECRET,
+            process.env.JWT_SECRET,
             { expiresIn: '1h'}, // Token expires in 1 hr
             (err, token) => {
                 if(err) throw err;
@@ -63,7 +67,7 @@ router.post('/login', async(req, res) => {
         };
         jwt.sign(
             payload,
-            JWT_SECRET,
+            process.env.JWT_SECRET,
             {expiresIn: '1h'}, // Token expires in 1 hr
             (err, token) => {
                 if (err) throw err;
@@ -72,8 +76,19 @@ router.post('/login', async(req, res) => {
         )
     } catch (err) {
         console.error(err.message);
-        res.status(500). send('Server error');
+        res.status(500).send('Server error');
     }
 })
+
+router.post('/googleSignIn', async(req, res) => {
+    try{
+        res.redirect('http://localhost:4200/overview')
+    }
+    catch (err) {
+        console.error(err.message);
+        res.status(500).send('Sign In error');
+    }
+})
+
 
 module.exports = router;
