@@ -2,9 +2,9 @@ import { Storage } from '@org/tools/storage';
 import { SignUp } from '@org/sign-up';
 import { AuthValidation } from '@org/tools/auth-validation';
 import { AuthService } from '@org/auth'
-import { Component, inject, output, OutputEmitterRef } from '@angular/core';
+import { Component, inject, OnInit, output, OutputEmitterRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,32 +13,40 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
   readonly loginSuccess: OutputEmitterRef<boolean> = output<boolean>();
-  userForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-  });
-  statusMessage = '';
-  isSignUpPopUpOpen = false;
+  loginForm!: FormGroup;
 
+  isLoading = false;
+  isSuccess = false;
+  isSignUpPopUpOpen = false;
+  statusMessage = '';
+  
   get userName() {
-    return this.userForm.get('username');
+    return this.loginForm.get('username');
   }
 
   get password() {
-    return this.userForm.get('password');
+    return this.loginForm.get('password');
   }
 
   router = inject(Router);
   validation = inject(AuthValidation);
   sessionStorageService = inject(Storage);
   authService = inject(AuthService)
+  fb = inject(FormBuilder)
 
   constructor() {
     if(this.authService.isLoggedIn()) {
       this.router.navigate(['overview'])
     }
+  }
+
+  ngOnInit(): void {
+      this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
   async onClick() {
@@ -85,6 +93,46 @@ export class Login {
       this.statusMessage = successMsg;
     } else if (!erroMsg && !successMsg) {
       this.statusMessage = '';
+    }
+  }
+
+  onLoginSubmit() {
+    if (this.loginForm.invalid) {
+      this.setMessages({
+        erroMsg: 'Please fill out all required fields.'
+      })
+      this.isSuccess = false;
+      this.loginForm.markAllAsTouched(); // Show validation errors
+      return;
+    }
+
+    this.isLoading = true;
+    this.statusMessage = '';
+
+    const { username, password } = this.loginForm.value;
+
+    try{
+      this.authService.login({
+        email: username, 
+        password: password,
+      }).subscribe({
+        next: async () => {
+          this.isSuccess = true;
+          await this.router.navigate(['overview']);
+          this.loginSuccess.emit(this.authService.isLoggedIn());
+        },
+        error: (error) =>  {
+          this.isSuccess = false;
+          this.setMessages({ erroMsg: error.error.msg ?? 'Server Error' });
+        },
+      })
+    } catch {
+      this.isSuccess = false;
+      this.setMessages({
+        erroMsg: 'An unexpected network error occurred.'
+      })
+    } finally {
+      this.isLoading = false;
     }
   }
 }

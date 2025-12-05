@@ -1,0 +1,66 @@
+<div class="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+      <div class="max-w-4xl w-full bg-white shadow-2xl rounded-xl p-8 sm:p-12 text-center transform transition-all duration-500 ease-in-out hover:scale-[1.01]">
+        
+        <!-- Icon and Headline -->
+        <div class="mb-8">
+          <svg class="w-20 h-20 text-green-500 mx-auto animate-bounce-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mt-4 tracking-tight">
+            Feature Launching Soon!
+          </h1>
+          <p class="mt-4 text-xl text-gray-600 font-medium">
+            Get ready for the next level of personalized nutrition experience.
+          </p>
+        </div>
+
+        <!-- Target Feature Description -->
+        <div class="mb-10 p-6 bg-green-50 rounded-lg border-l-4 border-green-400">
+          <h2 class="text-2xl font-semibold text-green-800 mb-2">
+            {{ featureTitle() }}
+          </h2>
+          <p class="text-green-700 leading-relaxed">
+            {{ featureDescription() }}
+          </p>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="mb-10">
+          <h3 class="text-3xl font-bold text-gray-800 mb-6">Estimated Launch In:</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            
+            <div class="countdown-unit bg-green-500 text-white shadow-lg">
+              <span class="block text-4xl sm:text-6xl font-extrabold">{{ countdown().days }}</span>
+              <span class="block text-sm sm:text-lg uppercase mt-1">Days</span>
+            </div>
+
+            <div class="countdown-unit bg-green-500 text-white shadow-lg">
+              <span class="block text-4xl sm:text-6xl font-extrabold">{{ countdown().hours }}</span>
+              <span class="block text-sm sm:text-lg uppercase mt-1">Hours</span>
+            </div>
+            
+            <div class="countdown-unit bg-green-500 text-white shadow-lg">
+              <span class="block text-4xl sm:text-6xl font-extrabold">{{ countdown().minutes }}</span>
+              <span class="block text-sm sm:text-lg uppercase mt-1">Minutes</span>
+            </div>
+
+            <div class="countdown-unit bg-green-500 text-white shadow-lg">
+              <span class="block text-4xl sm:text-6xl font-extrabold">{{ countdown().seconds }}</span>
+              <span class="block text-sm sm:text-lg uppercase mt-1">Seconds</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Call to Action / Social -->
+        <div class="border-t pt-6">
+          <p class="text-gray-500 mb-4">
+            Don't miss the announcement! Follow us for updates.
+          </p>
+          <button class="bg-green-600 text-white py-3 px-8 rounded-full font-semibold text-lg hover:bg-green-700 transition duration-300 shadow-md">
+            Notify Me When Live
+          </button>
+        </div>
+
+      </div>
+    </div>

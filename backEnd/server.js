@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-
 const authRoutes = require('./routes/auth');
 
 dotenv.config();
@@ -14,7 +13,7 @@ app.use(express.json());
 
 const connectDb = async() => {
     try {
-        await mongoose.connect('mongodb+srv://kundusumit999_db_user:qUTBjAdqEKf7tF6m@dietician.lreyuoe.mongodb.net/dietician_db');
+        await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB connected")
     } catch(err) {
         console.error(err.message);

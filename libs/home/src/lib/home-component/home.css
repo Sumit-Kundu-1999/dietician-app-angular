@@ -1,133 +1,170 @@
-/* --- Global & Utility Styles --- */
-/* Custom shadow for a more pronounced look than Bootstrap's defaults */
-.shadow-lg { box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important; }
-.shadow-xl { box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15) !important; }
-
-/* --- Profile Card Enhancements --- */
-.profile-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.profile-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.25) !important;
-}
-
-.profile-img {
-    width: 150px; /* Set a specific size for the circular image */
-    height: 150px;
-    object-fit: cover;
-}
-
-/* Button Hover Effect */
-.hover-grow {
-    transition: transform 0.2s ease;
-}
-.hover-grow:hover {
-    transform: scale(1.03);
-}
-
-
-/* --- Carousel Enhancements --- */
-.carousel-img {
-    height: 450px; /* Fixed height for visual consistency */
-    object-fit: cover; 
-    filter: brightness(0.85); /* Slightly darken the image for caption contrast */
-}
-
-.carousel-indicators-custom button {
-    background-color: var(--bs-primary); /* Use primary color for active indicator */
-    height: 5px;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-.carousel-indicators-custom .active {
-    opacity: 1;
-}
-
-.carousel-caption-custom {
-    /* Use a more subtle background for the caption */
-    background-color: rgba(0, 0, 0, 0.65) !important; 
-    padding: 1rem 1.5rem !important;
-    bottom: 0; /* Align caption to the bottom */
-}
-
-
-/* --- Modal Enhancements --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Darker overlay */
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    z-index: 1000; 
-}
-
-/* Modal Entry Animation */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95) translateY(20px);
+    :host {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa; /* Light background for the component */
     }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
+
+    /* Profile Card Enhancements */
+    .profile-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f0fff0 100%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease-in-out;
     }
-}
-.modal-animation {
-    animation: slideIn 0.3s ease-out forwards;
-}
+    .profile-card:hover {
+        transform: translateY(-5px);
+    }
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      transition: border-color 0.3s;
+    }
+    .hover-grow {
+        transition: all 0.3s ease;
+    }
+    .hover-grow:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4) !important;
+    }
+    .text-primary {
+        color: #28a745 !important; /* Custom primary green */
+    }
+    .btn-primary {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    .btn-primary:hover {
+        background-color: #1e7e34;
+        border-color: #1c7430;
+    }
+    .text-success-emphasis {
+        color: #155724 !important; /* Darker green for emphasis */
+    }
 
-.modal-content {
-    background-color: white;
-    border-radius: 12px; /* Softer rounded corners */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    /* Carousel Customization */
+    .carousel-img {
+      height: 400px; /* Fixed height for consistency */
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+    .carousel-caption-custom {
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      margin: 0;
+    }
+    .carousel-indicators-custom button {
+        background-color: #28a745;
+    }
+    .carousel-indicators-custom .active {
+        background-color: #fff;
+        border-color: #28a745;
+    }
     
-    max-width: 380px; /* Slightly wider modal */
-    width: 100%; 
-    height: auto; 
-    
-    text-align: center;
-    padding: 1.5rem; /* Added padding inside */
-}
+    /* NEW: News Card Section Styling */
+    .news-title-shadow {
+        text-shadow: 2px 2px 4px rgba(40, 167, 69, 0.2);
+    }
+    .news-card {
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        background-color: #ffffff;
+    }
+    .news-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    .news-img {
+        height: 250px;
+        object-fit: cover;
+        width: 100%;
+        border-bottom: 3px solid #f0fff0;
+    }
+    .program-badge {
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+    .card-title {
+        min-height: 50px; /* Ensure consistent title height */
+    }
+    .card-text {
+        font-size: 0.95rem;
+    }
 
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #dee2e6;
-    padding-bottom: 10px;
-    margin-bottom: 15px; 
-    width: 100%;
-}
+    /* Modal Styling (Existing) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1050;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+    }
+    .modal-animation {
+      animation: fadeIn 0.3s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 15px;
+    }
+    .close-button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #333;
+    }
+    .qr-code-container {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .qr-img {
+        max-width: 150px;
+        border: 4px solid #28a745;
+        border-radius: 5px;
+    }
 
-.close-button.btn-close-custom {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: #6c757d;
-    line-height: 1;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-.close-button.btn-close-custom:hover {
-    color: #dc3545; /* Change color on hover */
-}
+    .ratio-5-4 {
+        height: fit-content(); 
+    }
 
-.qr-code-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0; 
-}
-
-.qr-img {
-    max-width: 250px; /* Set a max size for the QR code image */
-    height: auto;
-    border: 5px solid #f8f9fa; /* Light border around the code */
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .profile-img {
+        margin-bottom: 15px !important;
+      }
+      .col-md-9 {
+        text-align: center !important;
+      }
+      .profile-card hr {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .carousel-img {
+          height: 300px;
+      }
+    }

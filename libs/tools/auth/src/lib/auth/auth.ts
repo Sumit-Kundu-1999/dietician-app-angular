@@ -34,7 +34,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('UserName');
-    this.loggedSubject.next(false)
+    this.loggedSubject.next(false);
   }
 
   isLoggedIn(): boolean {

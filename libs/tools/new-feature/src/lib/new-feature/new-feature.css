@@ -1,0 +1,48 @@
+/* src/styles.css */
+@import "tailwindcss";
+
+.countdown-unit {
+      border-radius: 12px;
+      padding: 16px 8px;
+      line-height: 1;
+      animation: pulse-shadow 2s infinite;
+    }
+
+    /* Custom keyframes for a slow, gentle bounce (for the lightning bolt icon) */
+    .animate-bounce-slow {
+      animation: bounce-slow 3s infinite;
+    }
+    
+    @keyframes bounce-slow {
+      0%, 100% {
+        transform: translateY(-5%);
+      }
+      50% {
+        transform: translateY(0);
+      }
+    }
+
+    /* Pulse effect for the countdown boxes */
+    @keyframes pulse-shadow {
+      0%, 100% {
+        box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); /* Green-500 shadow */
+      }
+      50% {
+        box-shadow: 0 8px 25px rgba(34, 197, 94, 0.6);
+      }
+    }
+
+    /* Custom Scrollbar for better aesthetics if needed */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
+    }

@@ -20,7 +20,9 @@
       "@org/sign-up": ["libs/sign-up/src/index.ts"],
       "@org/authentication": ["libs/authentication/src/index.ts"],
       "@org/tools/auth-validation": ["libs/tools/auth-validation/src/index.ts"],
-      "@org/auth": ["libs/tools/auth/src/index.ts"]
+      "@org/auth": ["libs/tools/auth/src/index.ts"],
+      "@org/tools/new-feature": ["libs/tools/new-feature/src/index.ts"],
+      "@org/membership": ["libs/membership/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
